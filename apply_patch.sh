@@ -2,7 +2,7 @@
 
 aosp_tag="$1"
 # Main directory
-root_dir="$(dirname "$(pwd)")"
+root_dir="$(pwd)"
 
 patch_dir="patches"
 
@@ -24,22 +24,18 @@ for patch_file in $patch_files; do
     if [ ! -e "$root_dir/$project_name/.patch_applied" ]; then
       cd "$root_dir/$project_name" && git checkout .
       if [ $? -eq 0 ]; then
+        git apply "$patch_file"
+        git add .
+        git commit -m "Apply patch: $patch_file"
+        
         touch "$root_dir/$project_name/.patch_applied"
-        echo "Initial checkout successful. Patch will be applied."
+        echo "Patch applied and committed successfully."
       else
         echo "Initial checkout failed. Skipping patch for $project_name."
         continue
       fi
     else
       echo "Patch already applied for $project_name. Proceeding to the next patch."
-    fi
-
-    git apply "$patch_file"
-    if [ $? -eq 0 ]; then
-      echo "Patch applied successfully."
-    else
-      echo "Patch failed to apply. Skipping patch for $project_name."
-      continue
     fi
   else
     echo "Error: Project $project_name does not exist in the main directory."
@@ -54,3 +50,4 @@ for patch_file in $patch_files; do
     rm "$root_dir/$project_name/.patch_applied"
   fi
 done
+
