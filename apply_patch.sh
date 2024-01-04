@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Check if the aosp tag has been provided
-if [ $# -eq 0 ]; then
-  echo "Error: Please provide the AOSP tag - for example android-13.0.0_r52"
-  exit 1
-fi
-
 aosp_tag="$1"
 # Main directory
 root_dir="$(dirname "$(pwd)")"
@@ -38,14 +32,6 @@ for patch_file in $patch_files; do
       fi
     else
       echo "Patch already applied for $project_name. Proceeding to the next patch."
-    fi
-
-    git checkout "$aosp_tag"
-    if [ $? -eq 0 ]; then
-      echo "Checked out AOSP tag $aosp_tag successfully."
-    else
-      echo "Failed to checkout AOSP tag $aosp_tag. Skipping patch for $project_name."
-      continue
     fi
 
     git apply "$patch_file"
