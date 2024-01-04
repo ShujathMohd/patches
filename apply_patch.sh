@@ -4,7 +4,7 @@ aosp_tag="$1"
 # Main directory
 root_dir="$(dirname "$(pwd)")"
 
-patch_dir="aosp_patches"
+patch_dir="patches"
 
 # Find all patch files in directory "a" and its subdirectories
 patch_files=$(find "$root_dir/$patch_dir" -name "*.patch")
