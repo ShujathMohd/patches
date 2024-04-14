@@ -8,6 +8,7 @@ patch_dir="patches"
 
 # Remove FWK-DETECT from qcom-caf/common 
 rm -rf hardware/qcom-caf/common/fwk-detect
+rm -rf device/sony/customization/livedisplay
 
 # Find all patch files in directory "a" and its subdirectories
 patch_files=$(find "$root_dir/$patch_dir" -name "*.patch")

@@ -1,0 +1,73 @@
+From 58342fd2d2727bf498401d6759dd08c30ca3e3b5 Mon Sep 17 00:00:00 2001
+From: shujathmohd <shujath@outlook.in>
+Date: Mon, 15 Apr 2024 02:58:49 +0530
+Subject: [PATCH] Remove deprecated API's and references
+ https://github.com/LineageOS/android_frameworks_base/commit/4d53aa0caec7029bf6c9b5789c1708bc4bb71b76
+
+---
+ ...move-deprecated-API-s-and-references.patch | 32 +++++++++++++++++++
+ .../com/sony/transmitpower/Transmitter.java   |  9 +++---
+ 2 files changed, 36 insertions(+), 5 deletions(-)
+ create mode 100644 0001-Remove-deprecated-API-s-and-references.patch
+
+diff --git a/0001-Remove-deprecated-API-s-and-references.patch b/0001-Remove-deprecated-API-s-and-references.patch
+new file mode 100644
+index 0000000..16e46ea
+--- /dev/null
++++ b/0001-Remove-deprecated-API-s-and-references.patch
+@@ -0,0 +1,32 @@
++From 5d6f6559e3a23e09201be091d7e68f27536687de Mon Sep 17 00:00:00 2001
++From: shujathmohd <shujath@outlook.in>
++Date: Mon, 15 Apr 2024 02:58:49 +0530
++Subject: [PATCH] Remove deprecated API's and references
++ https://github.com/LineageOS/android_frameworks_base/commit/4d53aa0caec7029bf6c9b5789c1708bc4bb71b76
++
++---
++ libpower/src/com/sony/transmitpower/Transmitter.java | 8 ++++----
++ 1 file changed, 4 insertions(+), 4 deletions(-)
++
++diff --git a/libpower/src/com/sony/transmitpower/Transmitter.java b/libpower/src/com/sony/transmitpower/Transmitter.java
++index 9854bec..e6ddcba 100644
++--- a/libpower/src/com/sony/transmitpower/Transmitter.java
+++++ b/libpower/src/com/sony/transmitpower/Transmitter.java
++@@ -50,10 +50,10 @@ public final class Transmitter {
++         buf.putInt(value);
++ 
++         // tm calls this through on the ITelephony service
++-        byte[] resp = new byte[1024];
++-        int ret = telephonyManager.invokeOemRilRequestRaw(buf.array(), resp);
++-        if (ret < 0)
++-            Log.e(TAG, "invokeOemRilRequestRaw SET_TRANSMIT_POWER failed with rc = " + ret);
+++        //byte[] resp = new byte[1024];
+++        //int ret = telephonyManager.invokeOemRilRequestRaw(buf.array(), resp);
+++        //if (ret < 0)
+++        //    Log.e(TAG, "invokeOemRilRequestRaw SET_TRANSMIT_POWER failed with rc = " + ret);
++     }
++ 
++     private static boolean validate(final int key, final int value) {
++-- 
++2.34.1
++
+diff --git a/libpower/src/com/sony/transmitpower/Transmitter.java b/libpower/src/com/sony/transmitpower/Transmitter.java
+index 9854bec..24f01f7 100644
+--- a/libpower/src/com/sony/transmitpower/Transmitter.java
++++ b/libpower/src/com/sony/transmitpower/Transmitter.java
+@@ -49,11 +49,10 @@ public final class Transmitter {
+         buf.putInt(key);
+         buf.putInt(value);
+ 
+-        // tm calls this through on the ITelephony service
+-        byte[] resp = new byte[1024];
+-        int ret = telephonyManager.invokeOemRilRequestRaw(buf.array(), resp);
+-        if (ret < 0)
+-            Log.e(TAG, "invokeOemRilRequestRaw SET_TRANSMIT_POWER failed with rc = " + ret);
++        //byte[] resp = new byte[1024];
++        //int ret = telephonyManager.invokeOemRilRequestRaw(buf.array(), resp);
++        //if (ret < 0)
++        //    Log.e(TAG, "invokeOemRilRequestRaw SET_TRANSMIT_POWER failed with rc = " + ret);
+     }
+ 
+     private static boolean validate(final int key, final int value) {
+-- 
+2.34.1
+
