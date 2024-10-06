@@ -1,0 +1,46 @@
+From e1239c9e0225ae712bd2cc04857a297d6b37d859 Mon Sep 17 00:00:00 2001
+From: Yumi Yukimura <me.cafebabe@gmail.com>
+Date: Mon, 7 Oct 2024 00:39:54 +0530
+Subject: [PATCH] [PATCH] ipacm: Move `using namespace std;` to where it's
+ needed
+
+Fixes the following compilation error on Android 15:
+
+vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um/ipacm/inc/IPACM_Routing.h:49:17: error: using directive refers to implicitly-defined namespace 'std' [-Werror]
+   49 | using namespace std;
+
+Change-Id: I85bc9fa207bcabd911bd2f6ddcca5c503bd3fe30
+---
+ ipacm/inc/IPACM_LanToLan.h | 2 ++
+ ipacm/inc/IPACM_Routing.h  | 2 --
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/ipacm/inc/IPACM_LanToLan.h b/ipacm/inc/IPACM_LanToLan.h
+index e517e97..93a2ca0 100644
+--- a/ipacm/inc/IPACM_LanToLan.h
++++ b/ipacm/inc/IPACM_LanToLan.h
+@@ -49,6 +49,8 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ #include <list>
+ #endif /* ndefined(FEATURE_IPA_ANDROID)*/
+ 
++using namespace std;
++
+ #define MAX_NUM_CACHED_CLIENT_ADD_EVENT 10
+ #define MAX_NUM_IFACE 10
+ #define MAX_NUM_CLIENT 16
+diff --git a/ipacm/inc/IPACM_Routing.h b/ipacm/inc/IPACM_Routing.h
+index b5ffabc..99caf35 100644
+--- a/ipacm/inc/IPACM_Routing.h
++++ b/ipacm/inc/IPACM_Routing.h
+@@ -46,8 +46,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ #include <linux/msm_ipa.h>
+ #include <IPACM_Defs.h>
+ 
+-using namespace std;
+-
+ class IPACM_Routing
+ {
+ public:
+-- 
+2.34.1
+
